@@ -1,333 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Keyword Samurai</title>
-    <style>
-        :root {
-            --bg-dark: #121212;
-            --surface: #1e1e1e;
-            --primary: #bb86fc;
-            --secondary: #03dac6;
-            --error: #cf6679;
-            --success: #4caf50;
-            --on-surface: #e0e0e0;
-            --on-primary: #000000;
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--on-surface);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-
-        /* 1. Vergrößertes Logo */
-        #logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 150px; /* Deutlich vergrößert */
-            height: auto;
-            z-index: 10;
-            filter: drop-shadow(0 0 10px rgba(187, 134, 252, 0.4));
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 500px;
-            min-height: 100vh;
-            background: var(--bg-dark);
-            /* Mehr Padding oben, damit das große Logo Platz hat */
-            padding: env(safe-area-inset-top) 20px env(safe-area-inset-bottom) 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            margin-top: 120px; /* Platz für das große Logo schaffen */
-            text-align: right;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-
-        #progress-header {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .instruction {
-            font-size: 0.8rem;
-            color: #999;
-            font-style: italic;
-            margin: 15px 0;
-            line-height: 1.4;
-        }
-
-        .task-card {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .original-sentence {
-            background: var(--surface);
-            padding: 18px;
-            border-radius: 12px;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: var(--primary);
-            margin-bottom: 25px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .keyword-box {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .keyword {
-            display: inline-block;
-            font-weight: 800;
-            font-size: 1.3rem;
-            padding: 10px 30px;
-            border: 2px dashed var(--secondary);
-            border-radius: 10px;
-            background: transparent;
-            color: var(--on-surface);
-        }
-
-        .transformation-area {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-            display: block;
-            margin: 15px 0;
-            padding: 16px;
-            font-size: 16px; /* Wichtig gegen iOS-Auto-Zoom */
-            border: 2px solid #444;
-            border-radius: 12px;
-            background: #2c2c2c;
-            color: white;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        input:focus {
-            border-color: var(--primary);
-        }
-
-        .counter {
-            text-align: right;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .footer-controls {
-            margin-top: auto;
-            padding-bottom: 30px;
-        }
-
-        button {
-            width: 100%;
-            padding: 20px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        button:active { transform: scale(0.96); }
-
-        .btn-check { background: var(--primary); color: var(--on-primary); }
-        .btn-next { background: var(--success); color: white; display: none; }
-
-        .feedback-box {
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .score-screen {
-            text-align: center;
-            padding-top: 80px;
-            display: none;
-        }
-
-        .big-score {
-            font-size: 5.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            margin: 20px 0;
-            text-shadow: 0 0 25px rgba(187, 134, 252, 0.5);
-        }
-    </style>
+    <title>AP Simulator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="app-container">
+        <header id="stats-bar" class="hidden">
+            <div id="progress">1 / 5</div>
+            <div id="lives">❤️❤️❤️</div>
+            <div id="streak-display">🔥 <span id="streak-count">0</span></div>
+        </header>
 
-<img src="Keyword Ninja.png" id="logo" alt="Ninja Logo">
+        <main id="content-area">
+            <section data-screen="menu" class="blueprint-screen active">
+                <div class="glass-box" id="menu-box">
+                    <h2 id="menu-title">Keyword Transformation</h2>
+                    <p style="margin-bottom: 20px; font-size: 0.9rem;">AP English Drill</p>
+                    <button class="action-btn" onclick="startBlock()">START DRILL</button>
+                    <div class="branding-note">created by Mr. T. and Master E.</div>
+                </div>
+            </section>
 
-<div class="app-container">
-    <header>
-        <div id="progress-header">SET PROGRESS: 1 / 5</div>
-    </header>
+            <section data-screen="playing" class="blueprint-screen">
+                <div id="playing-glass-box" class="glass-box">
+                    <div id="task-orig" class="task-text"></div>
+                    <div id="task-key" class="keyword-box"></div>
+                    <div class="input-area">
+                        <span id="task-pre"></span>
+                        <span id="user-input-display" class="typing-placeholder">...</span>
+                        <span id="task-suf"></span>
+                    </div>
+                </div>
+            </section>
 
-    <div id="game-ui" class="task-card">
-        <p class="instruction">Transform using 2 to 5 words. Do not change the keyword.</p>
-        
-        <div class="original-sentence" id="orig">...</div>
-        
-        <div class="keyword-box">
-            <div class="keyword" id="key">...</div>
-        </div>
+            <section data-screen="continue" class="blueprint-screen">
+                <div class="glass-box">
+                    <h2>Block geschafft! 🎯</h2>
+                    <p style="margin-bottom: 20px;">Dein Streak: 🔥 <span id="final-streak"></span></p>
+                    <button class="action-btn" onclick="startBlock()">NÄCHSTE 5 (SHUFFLE)</button>
+                    <button class="action-btn secondary" onclick="AppDirector.goBack()">BEENDEN</button>
+                </div>
+            </section>
+        </main>
 
-        <div class="transformation-area">
-            <span id="prefix"></span>
-            <input type="text" id="user-input" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="Your answer...">
-            <span id="suffix"></span>
-        </div>
-
-        <div class="counter" id="word-count">Words: 0</div>
-
-        <div class="footer-controls">
-            <div id="feedback" class="feedback-box"></div>
-            <button class="btn-check" id="check-btn" onclick="checkAnswer()">CHECK ANSWER</button>
-            <button class="btn-next" id="next-btn" onclick="nextTask()">CONTINUE ⮕</button>
-        </div>
+        <footer id="thumb-zone" class="hidden">
+            <div id="keyboard"></div>
+        </footer>
     </div>
 
-    <div id="score-screen" class="score-screen">
-        <h2>Set Score</h2>
-        <div class="big-score" id="score-val">0 / 5</div>
-        <p style="margin-bottom: 40px; color: #999;">Ready for the next five sentences?</p>
-        <button class="btn-check" onclick="resetSet()">YES, NEXT SET!</button>
-        <button style="background:#333; margin-top:15px; color:#bbb;" onclick="location.reload()">RESTART ALL</button>
+    <div id="feedback-flash" class="hidden"></div>
+    
+    <div id="game-over-screen" class="hidden">
+        <img src="loser.jpg" alt="Game Over">
     </div>
-</div>
 
-<script>
-    // Die Sätze (Hier die vollständige Liste einfügen)
-    const db = [
-        { orig: "In 1614 the King’s Men Playing Company rebuilt the theatre.", key: "WAS", pre: "In 1614 the theatre", suf: "the King’s Men Playing Company.", ideal: ["was rebuilt by"] },
-        { orig: "The Puritans closed it down as they didn't enjoy watching such entertainment.", key: "WORTH", pre: "The Puritans closed it down because for them such entertainment", suf: ".", ideal: ["was not worth watching", "wasn't worth watching"] },
-        { orig: "The design team made sure it would look like the original.", key: "ORDER", pre: "The design team used various sources of information", suf: "it would look like the original.", ideal: ["in order to make sure"] },
-        { orig: "Modern extras like fire exits had to be included.", key: "NECESSARY", pre: "Although designers tried to keep to old building techniques,", suf: "modern extras like fire exits.", ideal: ["it was necessary to include"] },
-        { orig: "The first time visitors came to the new Globe Theatre was in 1997.", key: "COME", pre: "Since 1997", suf: "to the new Globe Theatre.", ideal: ["visitors have come"] },
-        { orig: "Mandela did not let hatred get the better of him.", key: "INSTEAD", pre: "", suf: "hatred get the better of him, Mandela continued to fight.", ideal: ["Instead of letting"] },
-        { orig: "Tell your friends they mustn’t feed wildlife.", key: "ALLOWED", pre: "Tell your friends that", suf: "feed wildlife.", ideal: ["they are not allowed to"] },
-        { orig: "Project Gutenberg is a digital library founded by Michael Hart.", key: "AS", pre: "Free information advocate Michael Hart", suf: "a digital library.", ideal: ["founded Project Gutenberg as"] }
-    ];
+    <canvas id="blueprint-fireworks" class="blueprint-fireworks-canvas"></canvas>
 
-    let currentSet = [];
-    let currentIdx = 0;
-    let score = 0;
-
-    function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
-
-    function resetSet() {
-        currentSet = shuffle([...db]).slice(0, 5);
-        currentIdx = 0;
-        score = 0;
-        document.getElementById('score-screen').style.display = 'none';
-        document.getElementById('game-ui').style.display = 'flex';
-        displayTask();
-    }
-
-    function displayTask() {
-        const t = currentSet[currentIdx];
-        document.getElementById('progress-header').innerText = `SET PROGRESS: ${currentIdx + 1} / 5`;
-        document.getElementById('orig').innerText = t.orig;
-        document.getElementById('key').innerText = t.key;
-        document.getElementById('prefix').innerText = t.pre;
-        document.getElementById('suffix').innerText = t.suf;
-        
-        const inp = document.getElementById('user-input');
-        inp.value = "";
-        inp.disabled = false;
-        document.getElementById('feedback').style.display = 'none';
-        document.getElementById('check-btn').style.display = 'block';
-        document.getElementById('next-btn').style.display = 'none';
-        updateWordCount();
-        inp.focus();
-    }
-
-    function updateWordCount() {
-        const val = document.getElementById('user-input').value.trim();
-        const count = val === "" ? 0 : val.split(/\s+/).length;
-        const cEl = document.getElementById('word-count');
-        cEl.innerText = `Words: ${count}`;
-        cEl.style.color = (count >= 2 && count <= 5) ? "var(--secondary)" : "var(--error)";
-    }
-
-    document.getElementById('user-input').addEventListener('input', updateWordCount);
-
-    function checkAnswer() {
-        const t = currentSet[currentIdx];
-        const val = document.getElementById('user-input').value.trim();
-        const words = val.split(/\s+/).filter(w => w !== "");
-        const fb = document.getElementById('feedback');
-        
-        if (!val.toLowerCase().includes(t.key.toLowerCase())) {
-            showFeedback(`Keyword "${t.key}" missing!`, "var(--error)");
-            return;
-        }
-        if (words.length < 2 || words.length > 5) {
-            showFeedback(`Word count error: ${words.length}`, "var(--error)");
-            return;
-        }
-
-        const isCorrect = t.ideal.some(s => s.toLowerCase().replace(/[.!?;]$/, "") === val.toLowerCase().replace(/[.!?;]$/, ""));
-        
-        if (isCorrect) {
-            score++;
-            showFeedback("✅ Correct!", "var(--success)");
-        } else {
-            showFeedback(`❌ Wrong. Solution: ${t.ideal[0]}`, "#999");
-        }
-
-        document.getElementById('user-input').disabled = true;
-        document.getElementById('check-btn').style.display = 'none';
-        document.getElementById('next-btn').style.display = 'block';
-    }
-
-    function showFeedback(msg, color) {
-        const fb = document.getElementById('feedback');
-        fb.innerText = msg;
-        fb.style.display = 'block';
-        fb.style.backgroundColor = color === "var(--success)" ? "rgba(76, 175, 80, 0.1)" : "rgba(207, 102, 121, 0.1)";
-        fb.style.color = color;
-    }
-
-    function nextTask() {
-        currentIdx++;
-        if (currentIdx < 5) {
-            displayTask();
-        } else {
-            document.getElementById('game-ui').style.display = 'none';
-            document.getElementById('score-screen').style.display = 'block';
-            document.getElementById('score-val').innerText = `${score} / 5`;
-        }
-    }
-
-    resetSet();
-</script>
+    <script src="app.js"></script>
 </body>
 </html>
