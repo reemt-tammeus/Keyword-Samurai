@@ -1,0 +1,65 @@
+:root {
+    --bg-color: #050505; 
+    --green: #28a745; 
+    --red: #dc3545; 
+    --glass-bg: rgba(0, 0, 0, 0.75); 
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --primary: #bb86fc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; color: #fff;}
+
+#app-container { 
+    width: 100%; max-width: 450px; height: 100dvh; display: flex; flex-direction: column;
+    background-image: url('logo.jpg'); background-size: cover; background-position: center; position: relative;
+}
+
+/* UI Elements */
+header#stats-bar { display: flex; justify-content: space-between; padding: 15px 20px; background: var(--glass-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border); font-weight: bold; }
+.hidden { display: none !important; }
+
+#content-area { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.blueprint-screen { display: none; width: 100%; }
+.blueprint-screen.active { display: block; }
+
+.glass-box { 
+    width: 100%; padding: 25px; background: var(--glass-bg); backdrop-filter: blur(15px);
+    border: 1.5px solid var(--glass-border); border-radius: 28px; text-align: center; 
+    transition: background 0.3s ease;
+}
+
+.startup-fade { animation: fadeIn 3s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Typografie & Inputs */
+.task-text { font-style: italic; margin-bottom: 10px; color: #ccc; }
+.keyword-box { font-weight: bold; font-size: 1.2rem; color: var(--primary); margin-bottom: 15px; letter-spacing: 2px; }
+.input-area { line-height: 1.6; font-size: 1.1rem; }
+.typing-placeholder { color: var(--primary); border-bottom: 2px solid var(--primary); padding: 0 5px; min-width: 50px; display: inline-block; }
+
+.action-btn { width: 100%; padding: 15px; border-radius: 12px; border: none; background: var(--primary); color: #000; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; cursor: pointer; }
+.action-btn.secondary { background: transparent; color: #fff; border: 1px solid var(--glass-border); }
+.branding-note { margin-top: 15px; font-size: 0.7rem; opacity: 0.5; }
+
+/* QWERTY Styles */
+#thumb-zone { padding: 10px; background: rgba(0,0,0,0.8); border-top: 1px solid var(--glass-border); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+#keyboard { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.kb-row { display: flex; justify-content: center; gap: 4px; }
+.row-2 { padding: 0 5%; } .row-3 { padding: 0 2%; } .row-4 { padding: 0 12%; gap: 8px; }
+.kb-key { background: rgba(255,255,255,0.15); color: white; border-radius: 8px; padding: 14px 0; flex: 1; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; font-size: 1.2rem; text-align: center; }
+.kb-key:active, .kb-key.active-hardware { background: rgba(255,255,255,0.4); }
+.kb-check { background: var(--green); flex: 1.5; font-size: 1.5rem; }
+.kb-space { flex: 4; font-size: 1rem; }
+.kb-backspace { flex: 1.5; background: rgba(220, 53, 69, 0.7); }
+
+/* Feedback & Animationen */
+.glow-green { background: rgba(40, 167, 69, 0.4) !important; border-color: var(--green); }
+#feedback-flash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(220, 53, 69, 0.95); color: white; font-size: 1.5rem; font-weight: bold; text-align: center; padding: 20px; }
+
+/* Game Over Jump Scare (In Your Face) */
+#game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100dvh; z-index: 999999; background: #000; }
+#game-over-screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Lego 6: Feuerwerk */
+.blueprint-fireworks-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
